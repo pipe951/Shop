@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ร้านขายแผ่นเสียงออนไลน์</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <h1><a href="#home">ร้านแผ่นเสียง PipeCD</a></h1>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="ค้นหา...">
+            <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+        </div>
+        <nav class="navbar-links">
+            <a href="#home">หน้าแรก</a>
+            <a href="#products">สินค้าแนะนำ</a>
+            <a href="#about">เกี่ยวกับเรา</a>
+            <a href="#contact">ติดต่อ</a>
+            <a href="javascript:void(0);" class="cart-link" onclick="toggleCart()">
+                <i class="fa-solid fa-cart-shopping fa-lg"></i><span id="cart-count">0</span>
+            </a>
+        </nav>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+
+    <!-- Home Banner -->
+    <section id="home" class="banner">
+        <h2>ยินดีต้อนรับสู่ร้านขายแผ่นเสียงของเรา</h2>
+        <p>ค้นพบแผ่นเสียงหลากหลายแนวเพลงในราคาสุดพิเศษ!</p>
+    </section>
+
+    <!-- Spacer for offset -->
+    <div class="spacer" id="products-spacer"></div>
+
+    <!-- Featured Products -->
+    <section id="products" class="products">
+        <h2>แผ่นเสียงแนะนำ</h2>
+        <div class="product-list">
+            <div class="product-item" data-id="1" data-name="Time In A Bottle" data-price="749.00">
+                <img src="img/Jim Croce-Time In A Bottle67.jpg" alt="Time In A Bottle">
+                <h3>Time In A Bottle Jim Croce's Greatest Love Song</h3>
+                <p><strong>ศิลปิน:</strong> Jim Croce <br>
+                    <strong>แนวเพลง:</strong> Rock<br>
+                    <strong>ปีที่ออก:</strong> 1978</p>
+                <p class="price">฿749.00</p>
+                <button onclick="addToCart(1, 'Time In A Bottle', 749.00)">เพิ่มในรถเข็น</button>
+            </div>
+            <div class="product-item" data-id="2" data-name="Greatest Hits" data-price="1099.00">
+                <img src="img/Willie Nelson.jpg" alt="Greatest Hits">
+                <h3>Greatest Hits (& Some That Will Be)</h3>
+                <p><strong>ศิลปิน:</strong> Willie Nelson <br>
+                    <strong>แนวเพลง:</strong> Country<br>
+                    <strong>ปีที่ออก:</strong> 1981</p>
+                <p></p>
+                <p class="price">฿1,099.00</p>
+                <button onclick="addToCart(2, 'Greatest Hits', 1099.00)">เพิ่มในรถเข็น</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section id="about" class="about">
+        <h2>เกี่ยวกับเรา</h2>
+        <p>ร้านแผ่นเสียง PipeCD เป็นร้านค้าที่มุ่งเน้นการนำเสนอแผ่นเสียงคุณภาพสูงจากศิลปินหลากหลายแนวเพลง เรามีความหลงใหลในดนตรีและมุ่งมั่นที่จะให้บริการลูกค้าด้วยผลิตภัณฑ์ที่ดีที่สุด</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>ติดต่อเรา</h2>
+        <p>หากคุณมีคำถามหรือข้อสงสัยใด ๆ สามารถติดต่อเราได้ที่:</p>
+        <div class="contact-info">
+            <span>อีเมล: contact@vinylstore.com โทรศัพท์: 012-345-6789</span>
+    </section>
+
+    <!-- Cart Popup -->
+    <section id="cart-popup" class="cart-popup">
+        <div class="cart-popup-content">
+            <h2>รถเข็นของคุณ</h2>
+            <div id="cart-items"></div>
+            <div class="cart-summary">
+                <p>รวมทั้งหมด: ฿<span id="cart-total">0.00</span></p>
+                <div class="cart-buttons">
+                    <button class="checkout-button" onclick="checkout()">ดำเนินการชำระเงิน</button>
+                    <button class="close-button" onclick="toggleCart()">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 ร้านขายแผ่นเสียงออนไลน์. สงวนลิขสิทธิ์.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
