@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ร้านขายแผ่นเสียงออนไลน์</title>
+    <title>PipeVinyl</title>
+    <link rel="icon" href="img/vinyl.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,10 +12,21 @@
 
     <!-- Navbar -->
     <header class="navbar">
-        <h1><a href="#home">ร้านแผ่นเสียง PipeCD</a></h1>
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="ค้นหา...">
-            <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+        <h1>
+            <a href="#home">
+                <i class="fa-duotone fa-solid fa-record-vinyl fa-xl"></i> PipeVinyl
+            </a>
+        </h1>
+        <div class="navbar-right">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="ค้นหา...">
+                <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+            </div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </div>
         <nav class="navbar-links">
             <a href="#home">หน้าแรก</a>
@@ -25,11 +37,6 @@
                 <i class="fa-solid fa-cart-shopping fa-lg"></i><span id="cart-count">0</span>
             </a>
         </nav>
-        <div class="hamburger" onclick="toggleMenu()">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
     </header>
 
     <!-- Home Banner -->
