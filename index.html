@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="th">
-<head>
+<head
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PipeVinyl</title>
     <link rel="icon" href="img/record-vinyl-solid.svg" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://js.stripe.com/v3/"></script>
+
 </head>
 <body>
 
@@ -117,12 +119,13 @@
             <div class="cart-summary">
                 <p>รวมทั้งหมด: ฿<span id="cart-total">0.00</span></p>
                 <div class="cart-buttons">
-                    <button class="checkout-button" onclick="checkout()">ดำเนินการชำระเงิน</button>
+                    <button id="checkoutButton" class="checkout-button">ดำเนินการชำระเงิน</button>
                     <button class="close-button" onclick="toggleCart()">ปิด</button>
                 </div>
             </div>
         </div>
     </section>
+    
 
     <!-- Footer -->
     <footer class="footer">

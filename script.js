@@ -75,18 +75,34 @@ function removeFromCart(id) {
     displayCart();  // Update display after item removal
 }
 
+
 // Checkout function (currently just clears the cart)
-function checkout() {
-    if (cart.length === 0) {
-        alert("รถเข็นของคุณว่างเปล่า!");
-        return;
-    }
-    alert("ดำเนินการชำระเงิน!");
-    cart = [];
-    saveCart();
-    displayCart();
-    updateCartCount();
-}
+// Function to handle checkout process with Stripe
+// ฟังก์ชันที่จะเรียกเมื่อผู้ใช้คลิกปุ่ม checkout
+// ฟังก์ชันที่ทำงานเมื่อผู้ใช้คลิกปุ่ม checkout
+document.getElementById("checkoutButton").addEventListener("click", function() {
+    fetch('http://127.0.0.1:3000/create-checkout-session', {  // ใช้พอร์ต 3000 ที่เซิร์ฟเวอร์ Express รัน
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cart })  // ส่งข้อมูลรถเข็นไปยังเซิร์ฟเวอร์
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        const stripe = Stripe('pk_test_51QLRDULXE6bgMjnAORtQGcif8tr8KYrFSyybsGtU6R8DNbt93AEOKOgdmEdvMrWXyJeSNRpkqXof8qaSeOjzwOru00eQdAqNEm');  // ใส่ Stripe Public Key ของคุณ
+        return stripe.redirectToCheckout({ sessionId: data.id });  // เปลี่ยนเส้นทางไปยัง Stripe Checkout
+    })
+    .then((result) => {
+        if (result.error) {
+            alert(result.error.message);  // แจ้งเตือนเมื่อเกิดข้อผิดพลาด
+        }
+    })
+    .catch((error) => console.error('Error:', error));  // ตรวจสอบข้อผิดพลาดที่เกิดขึ้น
+});
+
+
+
 
 // Toggle cart popup visibility with bounce effect
 function toggleCart() {
@@ -205,4 +221,3 @@ function toggleMenu() {
         navbarLinks.classList.remove('slide-in');
     }
 }
-
