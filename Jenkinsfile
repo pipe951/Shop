@@ -2,54 +2,56 @@ pipeline {
     agent any
 
     environment {
-        // กำหนด PATH สำหรับ npm
-        PATH = "C:\\Program Files\\nodejs\\;${env.PATH}"
+        NODE_HOME = 'C:\\Program Files\\nodejs'  // ชี้ไปที่ตำแหน่ง Node.js บน Windows
+        PATH = "${env.NODE_HOME}\\bin;${env.PATH}" // เพิ่ม Node.js ลงใน PATH
     }
 
     stages {
         stage('Checkout') {
             steps {
-                checkout scm // ดึงโค้ดจาก Git repository
+                // ดึงข้อมูลจาก Git repository
+                checkout scm
             }
         }
 
         stage('Install Dependencies') {
             steps {
+                // ติดตั้ง dependencies ผ่าน npm
                 script {
-                    // ติดตั้ง dependencies จาก package.json
-                    echo 'Installing dependencies...'
-                    bat 'npm install' // ใช้คำสั่ง npm บน Windows
+                    bat 'npm install'
+                }
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                // รันการทดสอบ
+                script {
+                    bat 'npm test'
                 }
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Building...'
-                bat 'npm run build'  // สร้างโค้ดใน Windows
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                bat 'npm test'  // รันการทดสอบ
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying to production...'
-                bat 'xcopy /E /I /H * C:\\Users\\Pipe\\Desktop\\test'  // ตัวอย่างการคัดลอกไฟล์ใน Windows
+                // การ build โค้ด (ถ้ามีขั้นตอนนี้)
+                script {
+                    bat 'npm run build'
+                }
             }
         }
     }
-     post {
+
+    post {
+        always {
+            // ขั้นตอนที่ต้องทำทุกครั้งหลังจาก pipeline เสร็จ เช่น การ clean up
+            echo 'Pipeline complete!'
+        }
         success {
-            echo 'Pipeline completed successfully.'
+            echo 'Build was successful!'
         }
         failure {
-            echo 'Pipeline failed.'
+            echo 'Build failed!'
         }
     }
 }
