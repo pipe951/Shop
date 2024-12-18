@@ -1,4 +1,3 @@
-// จัดเตรียม environment สำหรับการทดสอบ
 const fs = require('fs');
 const path = require('path');
 
@@ -8,7 +7,8 @@ describe('App functionality', () => {
   beforeAll(() => {
     // โหลดไฟล์ index.html
     const html = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf8');
-    document = new JSDOM(html).window.document;
+    // ใช้ DOMParser ที่ Jest จำลองให้
+    document = new DOMParser().parseFromString(html, 'text/html');
   });
 
   test('should display message when button is clicked', () => {
