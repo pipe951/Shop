@@ -39,10 +39,11 @@ it('should add event listener to cart-items', () => {
 });
 
 
-// script1.test.js
 describe('DOM Manipulation Test', () => {
+  let addEventListenerSpy;
+
   beforeEach(() => {
-    // สร้าง DOM จำลอง
+    // สร้าง DOM ที่จำเป็นสำหรับทดสอบ
     document.body.innerHTML = `
       <div id="cart-items">
         <div class="cart-item" data-id="1">
@@ -50,6 +51,13 @@ describe('DOM Manipulation Test', () => {
         </div>
       </div>
     `;
+
+    // Mock ฟังก์ชัน addEventListener
+    const cartItems = document.getElementById('cart-items');
+    addEventListenerSpy = jest.spyOn(cartItems, 'addEventListener');
+    
+    // เรียก script1.js เพื่อทำให้ event listener ถูกเพิ่ม
+    require('./script1.js');
   });
 
   afterEach(() => {
@@ -60,14 +68,15 @@ describe('DOM Manipulation Test', () => {
   it('should add an event listener to cart-items', () => {
     const cartItems = document.getElementById('cart-items');
 
-    // Mock ฟังก์ชัน addEventListener
-    const addEventListenerSpy = jest.spyOn(cartItems, 'addEventListener');
-
-    // เรียก script1.js (โหลดโค้ดของคุณ)
-    require('./script1.js');
-
     // ตรวจสอบว่า addEventListener ถูกเรียก
     expect(addEventListenerSpy).toHaveBeenCalledWith('input', expect.any(Function));
+
+    // ตรวจสอบการทำงานของ event listener
+    const inputElement = cartItems.querySelector('input');
+    inputElement.dispatchEvent(new Event('input')); // สร้าง event 'input'
+
+    // หากเพิ่ม event listener สำหรับการอัปเดตจำนวน ควรจะมีการเรียกฟังก์ชัน updateQuantity
+    expect(addEventListenerSpy).toHaveBeenCalledTimes(1);  // ตรวจสอบจำนวนการเรียก
   });
 });
 
