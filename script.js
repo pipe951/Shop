@@ -1,103 +1,6 @@
 // Initialize cart from localStorage
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-beforeEach(() => {
-  // สร้าง DOM ที่จำเป็นสำหรับทดสอบ
-  document.body.innerHTML = `
-    <div id="cart-items">
-      <div class="cart-item" data-id="1">
-        <input type="number" value="1">
-      </div>
-    </div>
-  `;
-});
-
-it('should add event listener to cart-items', () => {
-  const cartItems = document.getElementById('cart-items');
-  
-  // ตรวจสอบว่า element มีอยู่
-  if (cartItems) {
-    const addEventListenerSpy = jest.spyOn(cartItems, 'addEventListener');
-    
-    // เพิ่ม event listener ใน DOM
-    cartItems.addEventListener('input', function (event) {
-      if (event.target.tagName === 'INPUT' && event.target.type === 'number') {
-        const itemId = parseInt(event.target.closest('.cart-item').dataset.id, 10);
-        updateQuantity(itemId, event.target.value);
-      }
-    });
-
-    // สร้างการคลิกเพื่อทดสอบ
-    const inputElement = cartItems.querySelector('input');
-    inputElement.dispatchEvent(new Event('input'));
-
-    // ตรวจสอบว่า event listener ถูกเรียก
-    expect(addEventListenerSpy).toHaveBeenCalledWith('input', expect.any(Function));
-  } else {
-    console.error("Element 'cart-items' not found.");
-  }
-});
-
-
-describe('DOM Manipulation Test', () => {
-  let addEventListenerSpy;
-
-  beforeEach(() => {
-    // สร้าง DOM ที่จำเป็นสำหรับทดสอบ
-    document.body.innerHTML = `
-      <div id="cart-items">
-        <div class="cart-item" data-id="1">
-          <input type="number" value="1" />
-        </div>
-      </div>
-    `;
-
-    // Mock ฟังก์ชัน addEventListener
-    const cartItems = document.getElementById('cart-items');
-    addEventListenerSpy = jest.spyOn(cartItems, 'addEventListener');
-    
-    // เรียก script1.js เพื่อทำให้ event listener ถูกเพิ่ม
-    require('./script1.js');
-  });
-
-  afterEach(() => {
-    // ลบ DOM จำลองหลังทดสอบ
-    document.body.innerHTML = '';
-  });
-
-  it('should add an event listener to cart-items', () => {
-    const cartItems = document.getElementById('cart-items');
-
-    // ตรวจสอบว่า addEventListener ถูกเรียก
-    expect(addEventListenerSpy).toHaveBeenCalledWith('input', expect.any(Function));
-
-    // ตรวจสอบการทำงานของ event listener
-    const inputElement = cartItems.querySelector('input');
-    inputElement.dispatchEvent(new Event('input')); // สร้าง event 'input'
-
-    // หากเพิ่ม event listener สำหรับการอัปเดตจำนวน ควรจะมีการเรียกฟังก์ชัน updateQuantity
-    expect(addEventListenerSpy).toHaveBeenCalledTimes(1);  // ตรวจสอบจำนวนการเรียก
-  });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const cartItems = document.getElementById('cart-items');
-
-  if (cartItems) {
-    // เพิ่ม Event Listener เมื่อเจอ element
-    cartItems.addEventListener('input', function (event) {
-      if (event.target.tagName === 'INPUT' && event.target.type === 'number') {
-        const itemId = parseInt(event.target.closest('.cart-item').dataset.id, 10);
-        updateQuantity(itemId, event.target.value);
-      }
-    });
-  } else {
-    // ถ้าไม่มี element
-    console.warn("Element with ID 'cart-items' not found.");
-  }
-});
-
-
 // Function to add item to cart
 function addToCart(id, name, price) {
     const itemIndex = cart.findIndex(item => item.id === id);
@@ -172,22 +75,34 @@ function removeFromCart(id) {
     displayCart();  // Update display after item removal
 }
 
-const checkoutButton = document.getElementById('checkoutButton');
-if (checkoutButton) {
-  checkoutButton.addEventListener('click', function () {
-    fetch('http://127.0.0.1:3000/create-checkout-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ cart }),
+
+// Checkout function (currently just clears the cart)
+// Function to handle checkout process with Stripe
+// ฟังก์ชันที่จะเรียกเมื่อผู้ใช้คลิกปุ่ม checkout
+// ฟังก์ชันที่ทำงานเมื่อผู้ใช้คลิกปุ่ม checkout
+document.getElementById("checkoutButton").addEventListener("click", function() {
+    fetch('http://127.0.0.1:3000/create-checkout-session', {  // ใช้พอร์ต 3000 ที่เซิร์ฟเวอร์ Express รัน
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cart })  // ส่งข้อมูลรถเข็นไปยังเซิร์ฟเวอร์
     })
-      .then((response) => response.json())
-      .then((data) => {
-        const stripe = Stripe('pk_test_51QLRDULXE6bgMjnAORtQGcif8tr8KYrFSyybsGtU6R8DNbt93AEOKOgdmEdvMrWXyJeSNRpkqXof8qaSeOjzwOru00eQdAqNEm');
-        return stripe.redirectToCheckout({ sessionId: data.id });
-      })
-      .catch((error) => console.error('Error:', error));
-  });
-}
+    .then((response) => response.json())
+    .then((data) => {
+        const stripe = Stripe('pk_test_51QLRDULXE6bgMjnAORtQGcif8tr8KYrFSyybsGtU6R8DNbt93AEOKOgdmEdvMrWXyJeSNRpkqXof8qaSeOjzwOru00eQdAqNEm');  // ใส่ Stripe Public Key ของคุณ
+        return stripe.redirectToCheckout({ sessionId: data.id });  // เปลี่ยนเส้นทางไปยัง Stripe Checkout
+    })
+    .then((result) => {
+        if (result.error) {
+            alert(result.error.message);  // แจ้งเตือนเมื่อเกิดข้อผิดพลาด
+        }
+    })
+    .catch((error) => console.error('Error:', error));  // ตรวจสอบข้อผิดพลาดที่เกิดขึ้น
+});
+
+
+
 
 // Toggle cart popup visibility with bounce effect
 function toggleCart() {
