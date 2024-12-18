@@ -1,6 +1,39 @@
 // Initialize cart from localStorage
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+// script1.test.js
+describe('DOM Manipulation Test', () => {
+  beforeEach(() => {
+    // สร้าง DOM จำลอง
+    document.body.innerHTML = `
+      <div id="cart-items">
+        <div class="cart-item" data-id="1">
+          <input type="number" value="1" />
+        </div>
+      </div>
+    `;
+  });
+
+  afterEach(() => {
+    // ลบ DOM จำลองหลังทดสอบ
+    document.body.innerHTML = '';
+  });
+
+  it('should add an event listener to cart-items', () => {
+    const cartItems = document.getElementById('cart-items');
+
+    // Mock ฟังก์ชัน addEventListener
+    const addEventListenerSpy = jest.spyOn(cartItems, 'addEventListener');
+
+    // เรียก script1.js (โหลดโค้ดของคุณ)
+    require('./script1.js');
+
+    // ตรวจสอบว่า addEventListener ถูกเรียก
+    expect(addEventListenerSpy).toHaveBeenCalledWith('input', expect.any(Function));
+  });
+});
+
+
 // Function to add item to cart
 function addToCart(id, name, price) {
     const itemIndex = cart.findIndex(item => item.id === id);
