@@ -1,3 +1,5 @@
+import 'jest-localstorage-mock';
+
 // Initialize cart from localStorage
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
