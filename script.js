@@ -9,15 +9,20 @@ beforeEach(() => {
 });
 
 test('should add event listener to checkoutButton', () => {
-  // ทดสอบฟังก์ชันที่ใช้ document.getElementById
+  // ตรวจสอบว่ามีการสร้าง checkoutButton ใน DOM
   const checkoutButton = document.getElementById('checkoutButton');
-  expect(checkoutButton).not.toBeNull();
+  expect(checkoutButton).not.toBeNull(); // ต้องไม่เป็น null
+  expect(checkoutButton instanceof HTMLButtonElement).toBe(true); // ตรวจสอบว่าเป็นปุ่มจริงๆ
+  
   // ทดสอบว่า addEventListener ถูกเรียกหรือไม่
   const addEventListenerSpy = jest.spyOn(checkoutButton, 'addEventListener');
+  
+  // เรียกใช้งานฟังก์ชันที่เกี่ยวข้องกับการเพิ่ม event listener
   checkoutButton.click();
+  
+  // ตรวจสอบว่า addEventListener ถูกเรียกด้วยพารามิเตอร์ที่ถูกต้อง
   expect(addEventListenerSpy).toHaveBeenCalledWith('click', expect.any(Function));
 });
-
 // Function to add item to cart
 function addToCart(id, name, price) {
     const itemIndex = cart.findIndex(item => item.id === id);
