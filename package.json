@@ -4,13 +4,12 @@
   "description": "A simple Node.js application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"No tests specified\" && exit 0",   // สั่งให้ npm run test เพียงแค่พิมพ์ข้อความ
-    "build": "echo \"No build steps specified\" && exit 0"  // สั่งให้ npm run build พิมพ์ข้อความ
+    "test": "echo \"No tests specified\" && exit 0",
+    "build": "echo \"No build steps specified\" && exit 0"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    // สามารถใส่ dependencies ที่ต้องการได้ เช่น:
     "express": "^4.17.1"
   }
 }
