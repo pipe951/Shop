@@ -11,7 +11,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                // ใช้คำสั่ง build เช่น mvn หรือ npm หากมี
+                // ใช้ Maven ในการ Build (สำหรับ Windows)
+                bat 'mvn clean install'
             }
         }
 
