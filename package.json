@@ -9,7 +9,10 @@
   "jest": {
     "transform": {
       "^.+\\.js$": "babel-jest"
-    }
+    },
+    "testMatch": [
+    "**/?(*.)+(spec|test).js"
+  ]
   },
   "dependencies": {
     "cors": "^2.8.5",
