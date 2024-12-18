@@ -12,8 +12,8 @@
     },
     "testMatch": [
     "**/script.js"
-  ]
-
+    ]
+    "setupFiles": ["<rootDir>/jest.setup.js"]
   },
   "dependencies": {
     "cors": "^2.8.5",
