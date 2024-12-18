@@ -72,3 +72,10 @@ test('server should run on port 3000', () => {
   const port = 3000;
   expect(port).toBe(3000);  // ตัวอย่างการทดสอบ
 });
+
+test('server should start', async () => {
+  const server = startServer(); // สมมติว่ามีฟังก์ชัน startServer()
+  await server.listen(3000);
+  expect(server).toBeTruthy(); // ตรวจสอบว่าเซิร์ฟเวอร์เริ่มทำงาน
+});
+
