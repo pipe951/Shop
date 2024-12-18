@@ -2,27 +2,32 @@
 const fs = require('fs');
 const path = require('path');
 
-// โหลด HTML จำลองที่ต้องการทดสอบ
 beforeEach(() => {
-    // โหลด HTML ไฟล์จำลอง
-    document.body.innerHTML = fs.readFileSync(
-        path.resolve(__dirname, './index.html'), 
-        'utf8'
-    );
+  // สร้างปุ่ม checkoutButton และเพิ่มใน DOM
+  const checkoutButton = document.createElement('button');
+  checkoutButton.id = 'checkoutButton';
+  document.body.appendChild(checkoutButton);
+});
 
-    // เพิ่ม checkoutButton เข้าไปใน DOM
-    const checkoutButton = document.createElement('button');
-    checkoutButton.id = 'checkoutButton';
-    document.body.appendChild(checkoutButton);
+afterEach(() => {
+  // ลบ checkoutButton ออกจาก DOM หลังการทดสอบ
+  const checkoutButton = document.getElementById('checkoutButton');
+  if (checkoutButton) {
+    checkoutButton.remove();
+  }
 });
 
 test('should add event listener to checkoutButton', () => {
-    // ทดสอบฟังก์ชันที่ใช้ document.getElementById
-    const checkoutButton = document.getElementById('checkoutButton');
-    expect(checkoutButton).not.toBeNull();
+  const checkoutButton = document.getElementById('checkoutButton');
+  expect(checkoutButton).not.toBeNull();
 
-    // Mock addEventListener และตรวจสอบว่ามันถูกเรียก
-    const addEventListenerSpy = jest.spyOn(checkoutButton, 'addEventListener');
-    checkoutButton.click();
-    expect(addEventListenerSpy).toHaveBeenCalledWith('click', expect.any(Function));
+  // สร้าง Jest Spy เพื่อตรวจสอบ addEventListener
+  const addEventListenerSpy = jest.spyOn(checkoutButton, 'addEventListener');
+
+  // เรียกโค้ดที่จะเพิ่ม event listener (ฟังก์ชันจริงของคุณ)
+  require('./script'); // นำเข้าไฟล์ script.js
+
+  // ตรวจสอบว่า addEventListener ถูกเรียกด้วย "click" และ callback function
+  expect(addEventListenerSpy).toHaveBeenCalledWith('click', expect.any(Function));
 });
+
