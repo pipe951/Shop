@@ -1,5 +1,3 @@
-import 'jest-localstorage-mock';
-
 const express = require('express');
 const cors = require('cors');
 const Stripe = require('stripe');
