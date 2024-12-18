@@ -1,6 +1,6 @@
 // Import ไฟล์ script.js ถ้าจำเป็น
-const fs = require('./script.js');
-const path = require('./script.js');
+const fs = require('./script1.test.js');
+const path = require('./script1.test.js');
 
 beforeEach(() => {
   const cartItems = document.createElement('div');
