@@ -7,13 +7,13 @@
     "test": "jest"
   },
   "jest": {
+    "setupFiles": ["<rootDir>/jest.setup.js"],
     "transform": {
       "^.+\\.js$": "babel-jest"
     },
     "testMatch": [
-    "**/script.js"
+      "**/?(*.)+(spec|test).js"
     ]
-    "setupFiles": ["<rootDir>/jest.setup.js"]
   },
   "dependencies": {
     "cors": "^2.8.5",
