@@ -33,6 +33,23 @@ describe('DOM Manipulation Test', () => {
   });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const cartItems = document.getElementById('cart-items');
+
+  if (cartItems) {
+    // เพิ่ม Event Listener เมื่อเจอ element
+    cartItems.addEventListener('input', function (event) {
+      if (event.target.tagName === 'INPUT' && event.target.type === 'number') {
+        const itemId = parseInt(event.target.closest('.cart-item').dataset.id, 10);
+        updateQuantity(itemId, event.target.value);
+      }
+    });
+  } else {
+    // ถ้าไม่มี element
+    console.warn("Element with ID 'cart-items' not found.");
+  }
+});
+
 
 // Function to add item to cart
 function addToCart(id, name, price) {
