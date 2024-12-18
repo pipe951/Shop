@@ -3,17 +3,15 @@ const fs = require('./script.js');
 const path = require('./script.js');
 
 beforeEach(() => {
-  // สร้างปุ่ม checkoutButton และเพิ่มใน DOM
-  const checkoutButton = document.createElement('button');
-  checkoutButton.id = 'checkoutButton';
-  document.body.appendChild(checkoutButton);
+  const cartItems = document.createElement('div');
+  cartItems.id = 'cart-items';
+  document.body.appendChild(cartItems);
 });
 
 afterEach(() => {
-  // ลบ checkoutButton ออกจาก DOM หลังการทดสอบ
-  const checkoutButton = document.getElementById('checkoutButton');
-  if (checkoutButton) {
-    checkoutButton.remove();
+  const cartItems = document.getElementById('cart-items');
+  if (cartItems) {
+    cartItems.remove();
   }
 });
 
