@@ -11,7 +11,8 @@
       "^.+\\.js$": "babel-jest"
     },
     "testMatch": [
-    "**/*.js"
+    "**/script.js"
+  ]
   ]
   },
   "dependencies": {
