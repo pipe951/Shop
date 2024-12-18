@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const Stripe = require('stripe');
+const { startServer } = require('./server');  // นำเข้าฟังก์ชัน startServer จากไฟล์ server.js
 const stripe = Stripe('sk_test_51QLRDULXE6bgMjnAEB0nZntffpkZBjgvWDzeKPhrXRjmka6TcWMjCQJcCqbsTHUKe0UZSuIYbu59oLIHYRTFdbQX00sWXRodRZ');  // ใส่ Stripe Secret Key ของคุณ
 
 const app = express();
