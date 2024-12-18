@@ -4,17 +4,17 @@
   "description": "A simple Node.js application",
   "main": "index.js",
   "scripts": {
-    "test": "jest",   // รันการทดสอบด้วย Jest
-    "build": "webpack --config webpack.config.js"  // การ build ด้วย Webpack
+    "test": "jest",
+    "build": "webpack --config webpack.config.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "jest": "^29.0.0"   // เพิ่ม Jest สำหรับการทดสอบ
+    "jest": "^29.0.0"
   },
   "devDependencies": {
-    "webpack": "^5.0.0", // เพิ่ม Webpack สำหรับการ build
-    "webpack-cli": "^5.0.0" // เพิ่ม Webpack CLI
+    "webpack": "^5.0.0",
+    "webpack-cli": "^5.0.0"
   }
 }
