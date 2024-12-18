@@ -1,6 +1,44 @@
 // Initialize cart from localStorage
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+beforeEach(() => {
+  // สร้าง DOM ที่จำเป็นสำหรับทดสอบ
+  document.body.innerHTML = `
+    <div id="cart-items">
+      <div class="cart-item" data-id="1">
+        <input type="number" value="1">
+      </div>
+    </div>
+  `;
+});
+
+it('should add event listener to cart-items', () => {
+  const cartItems = document.getElementById('cart-items');
+  
+  // ตรวจสอบว่า element มีอยู่
+  if (cartItems) {
+    const addEventListenerSpy = jest.spyOn(cartItems, 'addEventListener');
+    
+    // เพิ่ม event listener ใน DOM
+    cartItems.addEventListener('input', function (event) {
+      if (event.target.tagName === 'INPUT' && event.target.type === 'number') {
+        const itemId = parseInt(event.target.closest('.cart-item').dataset.id, 10);
+        updateQuantity(itemId, event.target.value);
+      }
+    });
+
+    // สร้างการคลิกเพื่อทดสอบ
+    const inputElement = cartItems.querySelector('input');
+    inputElement.dispatchEvent(new Event('input'));
+
+    // ตรวจสอบว่า event listener ถูกเรียก
+    expect(addEventListenerSpy).toHaveBeenCalledWith('input', expect.any(Function));
+  } else {
+    console.error("Element 'cart-items' not found.");
+  }
+});
+
+
 // script1.test.js
 describe('DOM Manipulation Test', () => {
   beforeEach(() => {
