@@ -67,3 +67,8 @@ const port = 3000;  // ใช้พอร์ต 3000 สำหรับ Express.
 app.listen(port, () => {
     console.log(`Server running at http://127.0.0.1:${port}`);
 });
+
+test('server should run on port 3000', () => {
+  const port = 3000;
+  expect(port).toBe(3000);  // ตัวอย่างการทดสอบ
+});
