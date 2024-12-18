@@ -2,9 +2,8 @@ pipeline {
     agent any
 
     environment {
-        // กำหนด PATH ที่ติดตั้ง Node.js เอง
-        NODEJS_HOME = 'C:\\Program Files\\nodejs'  // เปลี่ยนเป็น Path ที่คุณติดตั้ง Node.js
-        PATH = "${NODEJS_HOME}\\bin;${env.PATH}"  // เพิ่ม path ของ Node.js เข้าไปใน PATH
+        // กำหนด PATH สำหรับ npm
+        PATH = "C:\\Program Files\\nodejs\\;${env.PATH}"
     }
 
     stages {
