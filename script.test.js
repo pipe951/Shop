@@ -1,6 +1,6 @@
 // Import ไฟล์ script.js ถ้าจำเป็น
-const fs = require('fs');
-const path = require('path');
+const fs = require('./script.js');
+const path = require('./script.js');
 
 beforeEach(() => {
   // สร้างปุ่ม checkoutButton และเพิ่มใน DOM
