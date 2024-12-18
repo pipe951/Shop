@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "jest": {
+    "testEnvironment": "jsdom",
     "setupFiles": ["<rootDir>/jest.setup.js"],
     "transform": {
       "^.+\\.js$": "babel-jest"
